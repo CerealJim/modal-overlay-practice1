@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module webpage</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/calculator">calculator</a>
+      <a href="/modal">Contact</a>
+    </nav>
+
+    <div id="content"></div>
+
+    <script>
+      // Function to update content based on the current route
+      function updateContent() {
+        const path = window.location.pathname;
+
+        // Simple route handling
+        if (path === "/") {
+          document.getElementById("content").innerText =
+            "This is the Home page.";
+        } else if (path === "/calculator") {
+          fetch("/calculator.html")
+            .then((response) => response.text())
+            .then((html) => {
+              document.getElementById("content").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error("Error loading calculator.html", error);
+              document.getElementById("content").innerText =
+                "Error loading calculator.";
+            });
+        } else if (path === "/modal") {
+          fetch("/modal.html")
+            .then((response) => response.text())
+            .then((html) => {
+              document.getElementById("content").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error("Error loading calculator.html", error);
+              document.getElementById("content").innerText =
+                "Error loading calculator.";
+            });
+        } else {
+          document.getElementById("content").innerText = "Page not found.";
+        }
+      }
+
+      // Event listener to handle navigation
+      function handleNavigation(event) {
+        event.preventDefault();
+        history.pushState({}, "", event.target.href);
+        updateContent();
+      }
+
+      // Attach click event listeners to navigation links
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", handleNavigation);
+      });
+
+      // Listen for popstate event (e.g., back/forward buttons)
+      window.addEventListener("popstate", updateContent);
+
+      // Initial content update
+      updateContent();
+    </script>
+  </body>
+</html>
