@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator</title>
+    <style>
+      /* --------------------
+      Add your styling here
+      -------------------- */
+      .calculator {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 200px;
+        padding: 0.5rem;
+      }
+      .user-display {
+        max-width: 200px;
+      }
+      .user-display {
+        display: flex;
+        justify-content: flex-end;
+        word-wrap: break-word;
+        word-break: break-all;
+        height: auto;
+        min-height: 2rem;
+        border: 1px solid black;
+        max-width: calc(200px);
+        font-size: 2rem;
+        margin: 0 0.25rem;
+      }
+      .keypad {
+        display: flex;
+        width: 200px;
+      }
+      .numbers {
+        display: grid;
+        grid-template-columns: 50px 50px 50px;
+      }
+      .operators {
+        display: grid;
+        grid-template-columns: 50px;
+      }
+      .button {
+        margin: 0.25rem;
+        background-color: white;
+      }
+      .button:hover {
+        background-color: lightblue;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="user-display" type="text" id="user-input"></div>
+      <div class="keypad">
+        <div class="numbers">
+          <button class="button number 1" value="1">1</button>
+          <button class="button number 2" value="2">2</button>
+          <button class="button number 3" value="3">3</button>
+          <button class="button number 4" value="4">4</button>
+          <button class="button number 5" value="5">5</button>
+          <button class="button number 6" value="6">6</button>
+          <button class="button number 7" value="7">7</button>
+          <button class="button number 8" value="8">8</button>
+          <button class="button number 9" value="9">9</button>
+          <button class="button number 0" value="0">0</button>
+          <button class="button number decmial" value=".">.</button>
+        </div>
+        <div class="operators">
+          <button class="button operator clear" value="CE">CE</button>
+          <button class="button operator multiply" value="*">X</button>
+          <button class="button operator divide" value="/">/</button>
+          <button class="button operator subtract" value="-">-</button>
+          <button class="button operator add" value="+">+</button>
+          <button class="button operator equals" value="=">=</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      //DOM elements
+      const output = document.getElementById("user-input");
+      const numbers = document.querySelectorAll(".number");
+      const operators = document.querySelectorAll(".operator");
+      let prevNum = "";
+      let currNum = "";
+      let operator = "";
+
+      // number event listener
+      numbers.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          updateNum(e.target.value);
+        });
+      });
+
+      // operator event listener
+      operators.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          if (!operator === "") return;
+          let prevNum = currNum;
+          currNum = "";
+          updateOp(e.target.value);
+        });
+      });
+      // update display
+      const updateNum = (num) => {
+        if (num === "." && currNum.includes(".")) return;
+        currNum = currNum.toString() + num.toString();
+        return (output.innerText = currNum);
+      };
+      // operator function
+      const updateOp = (op) => {
+        console.log(prevNum, currNum, operator, "call equals");
+        if (op === "=" && !prevNum === "" && !currNum === "")
+          return calculation(prevNum, currNum, operator);
+        return (operator = op.toString());
+      };
+
+      //perform calc
+      const calculation = (prev, curr, op) => {
+        console.log(parseFloat(prev) + op + curr, "calc");
+        return (output.innerText = prev + op + curr);
+      };
+    </script>
+  </body>
+</html>

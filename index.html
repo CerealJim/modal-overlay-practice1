@@ -1,35 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-  <title>Modals</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module webpage</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/calculator">calculator</a>
+      <a href="/modal">Contact</a>
+    </nav>
 
-  <header>
-    <h1>Creating Modals using Vanila JS</h1>
-  </header>
+    <div id="content"></div>
 
-  <main>
-    <!-- button 1 -->
-    <button id="button1" type="button" class="clickButton">Modal#1</button>
-    <div id="modal1" class="modal exit one">
-      <button class="close"><i class="fas fa-times"></i></button>
-      <h2>Modal#1 💪</h2>
-    </div>
+    <script>
+      // Function to update content based on the current route
+      function updateContent() {
+        const path = window.location.pathname;
 
-    <!-- button 2 -->
-    <button id="button2" type="button" class="clickButton">Modal#2</button>
-    <div id="modal2" class="modal exit one">
-      <button class="close"><i class="fas fa-times"></i></button>
-      <h2>Modal#2 ✨</h2>
-    </div>
-  </main>
+        // Simple route handling
+        if (path === "/") {
+          document.getElementById("content").innerText =
+            "This is the Home page.";
+        } else if (path === "/calculator") {
+          fetch("/calculator.html")
+            .then((response) => response.text())
+            .then((html) => {
+              document.getElementById("content").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error("Error loading calculator.html", error);
+              document.getElementById("content").innerText =
+                "Error loading calculator.";
+            });
+        } else if (path === "/modal") {
+          fetch("/modal.html")
+            .then((response) => response.text())
+            .then((html) => {
+              document.getElementById("content").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error("Error loading calculator.html", error);
+              document.getElementById("content").innerText =
+                "Error loading calculator.";
+            });
+        } else {
+          document.getElementById("content").innerText = "Page not found.";
+        }
+      }
 
-  <script src="scripts.js""></script>
-</body>
+      // Event listener to handle navigation
+      function handleNavigation(event) {
+        event.preventDefault();
+        history.pushState({}, "", event.target.href);
+        updateContent();
+      }
+
+      // Attach click event listeners to navigation links
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", handleNavigation);
+      });
+
+      // Listen for popstate event (e.g., back/forward buttons)
+      window.addEventListener("popstate", updateContent);
+
+      // Initial content update
+      updateContent();
+    </script>
+  </body>
 </html>
