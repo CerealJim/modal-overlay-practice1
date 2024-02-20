@@ -97,10 +97,19 @@
       // operator event listener
       operators.forEach((button) => {
         button.addEventListener("click", (e) => {
-          if (!operator === "") return;
-          let prevNum = currNum;
+          if (e.target.value === "=") {
+            return calculation(prevNum, currNum, operator);
+          }
+          if (e.target.value === "CE") {
+            prevNum = "";
+            currNum = "";
+            operator = "";
+            output.innerText = "";
+            return;
+          }
+          prevNum = currNum;
+          operator = e.target.value;
           currNum = "";
-          updateOp(e.target.value);
         });
       });
       // update display
@@ -109,18 +118,28 @@
         currNum = currNum.toString() + num.toString();
         return (output.innerText = currNum);
       };
-      // operator function
-      const updateOp = (op) => {
-        console.log(prevNum, currNum, operator, "call equals");
-        if (op === "=" && !prevNum === "" && !currNum === "")
-          return calculation(prevNum, currNum, operator);
-        return (operator = op.toString());
-      };
 
       //perform calc
       const calculation = (prev, curr, op) => {
-        console.log(parseFloat(prev) + op + curr, "calc");
-        return (output.innerText = prev + op + curr);
+        a = parseFloat(prev);
+        b = parseFloat(curr);
+        equation = {
+          "+": function (a, b) {
+            return a + b;
+          },
+          "-": function (a, b) {
+            return a - b;
+          },
+          "/": function (a, b) {
+            return a / b;
+          },
+          "*": function (a, b) {
+            return a * b;
+          },
+        };
+
+        output.innerText = equation[operator](a, b);
+        currNum = equation[operator](a, b);
       };
     </script>
   </body>
