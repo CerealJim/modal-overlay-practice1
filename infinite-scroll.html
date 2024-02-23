@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Infinite Scroll</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+      .image-item img {
+        max-width: 300px;
+        max-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!----------------------
+    Add your markup here
+    ------------------------>
+    </div>
+    <script>
+      /* --------------------
+         Add your code here
+        --------------------- */
+
+      const usersList = {};
+      const containerEl = document.querySelector(".container");
+      const url = "https://picsum.photos/v2/list";
+
+      //
+      // get data from API
+      const fetchImages = async () => {
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+
+          console.log(data);
+
+          if (data.length > 0) {
+            data.forEach((image) => {
+              const imageItem = document.createElement("div");
+              imageItem.className = "image-item";
+              imageItem.innerHTML = `<img src="${image.download_url}" alt="Image #${image.id} by ${image.download_url}">`;
+              containerEl.appendChild(imageItem);
+            });
+          }
+        } catch (err) {
+          console.log(err, "there is an error with the API");
+        }
+      };
+
+      //
+      //Display images
+      fetchImages();
+    </script>
+  </body>
+</html>
