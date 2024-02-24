@@ -25,14 +25,15 @@
          Add your code here
         --------------------- */
 
-      const usersList = {};
       const containerEl = document.querySelector(".container");
-      const url = "https://picsum.photos/v2/list";
+      let pageNum = 1;
+      let url = `https://picsum.photos/v2/list?page=${pageNum}&limit=10`;
 
       //
-      // get data from API
+      // get batch of images from API
       const fetchImages = async () => {
         try {
+          let url = `https://picsum.photos/v2/list?page=${pageNum}&limit=10`;
           const response = await fetch(url);
           const data = await response.json();
 
@@ -50,10 +51,19 @@
           console.log(err, "there is an error with the API");
         }
       };
+      fetchImages();
 
       //
-      //Display images
-      fetchImages();
+      //Listen for scroll event and display images if we reach bottom of the window
+      document.addEventListener("scroll", (e) => {
+        let scrollPosition = window.scrollY;
+        let pageEnd =
+          document.body.offsetHeight - document.documentElement.clientHeight;
+        if (scrollPosition >= pageEnd) {
+          pageNum += 1;
+          fetchImages();
+        }
+      });
     </script>
   </body>
 </html>
