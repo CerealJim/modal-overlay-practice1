@@ -64,7 +64,7 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="user-display" type="text" id="user-input"></div>
+      <div class="user-display" id="user-input"></div>
       <div class="keypad">
         <div class="numbers">
           <button class="button number 1" value="1">1</button>
@@ -91,28 +91,32 @@
     </div>
 
     <div class="calculator2">
-      <input class="user-display user-display2" type="text" id="user-input"></input>
+      <div
+        class="user-display user-display2"
+        type="text"
+        id="user-input2"
+      ></div>
       <div class="keypad">
         <div class="numbers">
-          <button class="button number 1" value="1">1</button>
-          <button class="button number 2" value="2">2</button>
-          <button class="button number 3" value="3">3</button>
-          <button class="button number 4" value="4">4</button>
-          <button class="button number 5" value="5">5</button>
-          <button class="button number 6" value="6">6</button>
-          <button class="button number 7" value="7">7</button>
-          <button class="button number 8" value="8">8</button>
-          <button class="button number 9" value="9">9</button>
-          <button class="button number 0" value="0">0</button>
-          <button class="button number decmial" value=".">.</button>
+          <button class="button number- 1" value="1">1</button>
+          <button class="button number- 2" value="2">2</button>
+          <button class="button number- 3" value="3">3</button>
+          <button class="button number- 4" value="4">4</button>
+          <button class="button number- 5" value="5">5</button>
+          <button class="button number- 6" value="6">6</button>
+          <button class="button number- 7" value="7">7</button>
+          <button class="button number- 8" value="8">8</button>
+          <button class="button number- 9" value="9">9</button>
+          <button class="button number- 0" value="0">0</button>
+          <button class="button number- decmial" value=".">.</button>
         </div>
         <div class="operators">
-          <button class="button operator clear" value="CE">CE</button>
-          <button class="button operator multiply" value="*">X</button>
-          <button class="button operator divide" value="/">/</button>
-          <button class="button operator subtract" value="-">-</button>
-          <button class="button operator add" value="+">+</button>
-          <button class="button operator equals" value="=">=</button>
+          <button class="button operator- clear" value="CE">CE</button>
+          <button class="button operator- multiply" value="*">X</button>
+          <button class="button operator- divide" value="/">/</button>
+          <button class="button operator- subtract" value="-">-</button>
+          <button class="button operator- add" value="+">+</button>
+          <button class="button operator- equals" value="=">=</button>
         </div>
       </div>
     </div>
@@ -178,6 +182,102 @@
 
         output.innerText = equation[operator](a, b);
         currNum = equation[operator](a, b);
+      };
+    </script>
+    <script>
+      const nums = document.querySelectorAll(".number-");
+      const op = document.querySelectorAll(".operator-");
+      const screen = document.getElementById("user-input2");
+
+      let arr = [];
+      let currentNum = [];
+      let currentOp = [];
+      let period = false;
+
+      //when number is clicked
+      let numberClick = nums.forEach((e) => {
+        e.addEventListener("click", (e) => {
+          if (arr.length >= 1) {
+            arr.push(currentOp.pop());
+            if (e.target.innerText === "." && period === false) {
+              currentNum.push(e.target.innerText);
+              period = true;
+            } else if (e.target.innerText === "." && period === true) {
+              return;
+            } else {
+              currentNum.push(e.target.innerText);
+            }
+            screen.innerText = currentNum.join("");
+            console.log(arr, currentNum, currentOp, "arr num op");
+          } else {
+            if (e.target.innerText === "." && period === false) {
+              currentNum.push(e.target.innerText);
+              period = true;
+            } else if (e.target.innerText === "." && period === true) {
+              return;
+            } else {
+              currentNum.push(e.target.innerText);
+            }
+            screen.innerText = currentNum.join("");
+            console.log(arr, currentNum, currentOp, "arr num op");
+          }
+        });
+      });
+
+      //when number is clicked
+      let operatorClick = op.forEach((e) => {
+        e.addEventListener("click", (e) => {
+          //clears all variables
+          if (e.target.innerText === "CE") {
+            arr = [];
+            currentNum = [];
+            currentOp = [];
+            period = false;
+            screen.innerText = "";
+            return;
+          }
+          //runs calculation
+          if (e.target.innerText === "=") {
+            equationCalc();
+            return;
+          }
+          if (
+            e.target.innerText === "/" ||
+            e.target.innerText === "X" ||
+            e.target.innerText === "-" ||
+            e.target.innerText === "+"
+          ) {
+            console.log(arr, currentNum, currentOp, "arr num op");
+            screen.innerText = "";
+            arr.push(currentNum.join(""));
+            currentNum = [];
+            period = false;
+            currentOp.push(e.target.innerText);
+          } else {
+            currentOp.push(e.target.innerText);
+          }
+        });
+      });
+
+      //input calculation
+      let equationCalc = () => {
+        arr.push(currentNum.join(""));
+        currentNum = [];
+        let value = 0;
+        console.log(arr, "arr");
+        if (arr[1] === "/") {
+          value = parseInt(arr[0]) / parseInt(arr[2]);
+        } else if (arr[1] === "X") {
+          value = parseInt(arr[0]) * parseInt(arr[2]);
+        } else if (arr[1] === "-") {
+          value = parseInt(arr[0]) - parseInt(arr[2]);
+        } else if (arr[1] === "+") {
+          value = parseInt(arr[0]) + parseInt(arr[2]);
+        }
+        screen.innerText = value;
+        period = false;
+        arr = [];
+        currentNum.push(value);
       };
     </script>
   </body>
