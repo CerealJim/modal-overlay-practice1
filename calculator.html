@@ -14,6 +14,14 @@
         height: 200px;
         padding: 0.5rem;
       }
+      .calculator2 {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 200px;
+        padding: 0.5rem;
+      }
       .user-display {
         max-width: 200px;
       }
@@ -28,6 +36,9 @@
         max-width: calc(200px);
         font-size: 2rem;
         margin: 0 0.25rem;
+      }
+      .user-display2 {
+        text-align: right;
       }
       .keypad {
         display: flex;
@@ -54,6 +65,33 @@
   <body>
     <div class="calculator">
       <div class="user-display" type="text" id="user-input"></div>
+      <div class="keypad">
+        <div class="numbers">
+          <button class="button number 1" value="1">1</button>
+          <button class="button number 2" value="2">2</button>
+          <button class="button number 3" value="3">3</button>
+          <button class="button number 4" value="4">4</button>
+          <button class="button number 5" value="5">5</button>
+          <button class="button number 6" value="6">6</button>
+          <button class="button number 7" value="7">7</button>
+          <button class="button number 8" value="8">8</button>
+          <button class="button number 9" value="9">9</button>
+          <button class="button number 0" value="0">0</button>
+          <button class="button number decmial" value=".">.</button>
+        </div>
+        <div class="operators">
+          <button class="button operator clear" value="CE">CE</button>
+          <button class="button operator multiply" value="*">X</button>
+          <button class="button operator divide" value="/">/</button>
+          <button class="button operator subtract" value="-">-</button>
+          <button class="button operator add" value="+">+</button>
+          <button class="button operator equals" value="=">=</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator2">
+      <input class="user-display user-display2" type="text" id="user-input"></input>
       <div class="keypad">
         <div class="numbers">
           <button class="button number 1" value="1">1</button>
@@ -121,8 +159,8 @@
 
       //perform calc
       const calculation = (prev, curr, op) => {
-        a = parseFloat(prev);
-        b = parseFloat(curr);
+        a = parseInt(prev);
+        b = parseInt(curr);
         equation = {
           "+": function (a, b) {
             return a + b;
