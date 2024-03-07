@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-  <title>Modals</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <title>Modals</title>
+  </head>
+  <body>
+    <header>
+      <h1>Creating Modals using Vanila JS</h1>
+    </header>
 
-  <header>
-    <h1>Creating Modals using Vanila JS</h1>
-  </header>
+    <main>
+      <!-- button 1 -->
+      <button id="button1" type="button" class="clickButton">Modal#1</button>
+      <div id="modal1" class="modal exit one">
+        <button class="close"><i class="fas fa-times"></i></button>
+        <h2>Modal#1 💪</h2>
+      </div>
 
-  <main>
-    <!-- button 1 -->
-    <button id="button1" type="button" class="clickButton">Modal#1</button>
-    <div id="modal1" class="modal exit one">
-      <button class="close"><i class="fas fa-times"></i></button>
-      <h2>Modal#1 💪</h2>
-    </div>
+      <!-- button 2 -->
+      <button id="button2" type="button" class="clickButton">Modal#2</button>
+      <div id="modal2" class="modal exit one">
+        <button class="close"><i class="fas fa-times"></i></button>
+        <h2>Modal#2 ✨</h2>
+      </div>
+    </main>
 
-    <!-- button 2 -->
-    <button id="button2" type="button" class="clickButton">Modal#2</button>
-    <div id="modal2" class="modal exit one">
-      <button class="close"><i class="fas fa-times"></i></button>
-      <h2>Modal#2 ✨</h2>
-    </div>
-  </main>
-
-  <script src="scripts.js""></script>
-</body>
+    <script src="scripts.js"></script>
+  </body>
 </html>
