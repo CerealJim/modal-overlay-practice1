@@ -64,45 +64,46 @@
           fetchImages();
         }
       });
-
+    </script>
+    <script>
       // Practice Attempt
-      // const $container = document.querySelector(".container");
-      // const $url = `https://picsum.photos/v2/list`;
+      const $container = document.querySelector(".container");
+      const $url = `https://picsum.photos/v2/list`;
 
-      // const fetchData = async () => {
-      //   const response = await fetch($url);
-      //   const result = await response.json();
-      //   console.log(result, "result");
+      const fetchData = async () => {
+        const response = await fetch($url);
+        const result = await response.json();
+        console.log(result, "result");
 
-      //   for (let i = 0; i < result.length; i++) {
-      //     console.log(result[i]);
-      //     const newImg = document.createElement("img");
-      //     newImg.src = `${result[i].download_url}`;
-      //     newImg.alt = `image author ${result[i].author}`;
-      //     $container.append(newImg);
-      //   }
-      //   result.forEach((item) => {
-      //     console.log(item);
-      //     const element = document.createElement("div");
-      //     element.className = "item-container";
-      //     const imgEl = `<img src="${item.download_url}" alt="${item.author}"></>`;
-      //     element.innerHTML = imgEl;
-      //     $container.append(element);
-      //   });
-      // };
+        for (let i = 0; i < result.length; i++) {
+          console.log(result[i]);
+          const newImg = document.createElement("img");
+          newImg.src = `${result[i].download_url}`;
+          newImg.alt = `image author ${result[i].author}`;
+          $container.append(newImg);
+        }
+        result.forEach((item) => {
+          console.log(item);
+          const element = document.createElement("div");
+          element.className = "item-container";
+          const imgEl = `<img src="${item.download_url}" alt="${item.author}"></>`;
+          element.innerHTML = imgEl;
+          $container.append(element);
+        });
+      };
 
-      // document.addEventListener("scroll", (e) => {
-      //   let scrollY = window.scrollY;
-      //   let windowHeight = window.innerHeight;
-      //   let bodyHeight = document.body.clientHeight;
-      //   console.log(scrollY + windowHeight, bodyHeight);
-      //   if (scrollY + windowHeight >= bodyHeight) {
-      //     console.log("bottom");
-      //     fetchData();
-      //   }
-      // });
+      document.addEventListener("scroll", (e) => {
+        let scrollY = window.scrollY;
+        let windowHeight = window.innerHeight;
+        let bodyHeight = document.body.clientHeight;
+        console.log(scrollY + windowHeight, bodyHeight);
+        if (scrollY + windowHeight >= bodyHeight) {
+          console.log("bottom");
+          fetchData();
+        }
+      });
 
-      // fetchData();
+      fetchData();
     </script>
   </body>
 </html>

@@ -36,6 +36,7 @@
         max-width: calc(200px);
         font-size: 2rem;
         margin: 0 0.25rem;
+        overflow: hidden;
       }
       .user-display2 {
         text-align: right;
@@ -163,8 +164,8 @@
 
       //perform calc
       const calculation = (prev, curr, op) => {
-        a = parseInt(prev);
-        b = parseInt(curr);
+        a = parseFloat(prev);
+        b = parseFloat(curr);
         equation = {
           "+": function (a, b) {
             return a + b;
@@ -197,7 +198,7 @@
       //when number is clicked
       let numberClick = nums.forEach((e) => {
         e.addEventListener("click", (e) => {
-          if (arr.length >= 1) {
+          if (arr.length === 1) {
             arr.push(currentOp.pop());
             if (e.target.innerText === "." && period === false) {
               currentNum.push(e.target.innerText);
@@ -266,18 +267,19 @@
         let value = 0;
         console.log(arr, "arr");
         if (arr[1] === "/") {
-          value = parseInt(arr[0]) / parseInt(arr[2]);
+          value = parseFloat(arr[0]) / parseFloat(arr[2]);
         } else if (arr[1] === "X") {
-          value = parseInt(arr[0]) * parseInt(arr[2]);
+          value = parseFloat(arr[0]) * parseFloat(arr[2]);
         } else if (arr[1] === "-") {
-          value = parseInt(arr[0]) - parseInt(arr[2]);
+          value = parseFloat(arr[0]) - parseFloat(arr[2]);
         } else if (arr[1] === "+") {
-          value = parseInt(arr[0]) + parseInt(arr[2]);
+          value = parseFloat(arr[0]) + parseFloat(arr[2]);
         }
         screen.innerText = value;
         period = false;
         arr = [];
         currentNum.push(value);
+        console.log(value, "value");
       };
     </script>
   </body>
